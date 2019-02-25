@@ -22,7 +22,9 @@ def main():
 
 	Thetas, coste = descenso_gradiente(x, y, a)
 	dibuja(x[:, -1], y, Thetas)
-	dibuja_3d(x, y)
+	theta0, theta1, costes = coste_3d(x, y)
+	dibuja_3d(theta0, theta1, costes)
+	dibuja_contorno(theta0, theta1, costes)
 
 def descenso_gradiente(x, y, a):
 	m = len(x)
@@ -47,6 +49,18 @@ def coste(theta, x, y):
 	coste = (1 / (2 * m)) * np.sum((h(theta, x) - y)**2)
 	return coste
 
+def coste_3d(x, y):
+	theta0 = np.arange(-5, 5, 0.1)
+	theta1 = np.arange(-5, 5, 0.1)
+	theta0, theta1 = np.meshgrid(theta0, theta1)
+	costes = np.empty_like(theta0)
+
+	for xi, yi in np.ndindex(theta0.shape):
+		theta = np.array([theta0[xi, yi], theta1[xi, yi]])
+		costes[xi, yi] = coste(theta, x, y)
+
+	return (theta0, theta1, costes)
+
 def dibuja(x, y, theta):
 	plt.plot(x, y, 'rx')
 	x_range = range(23)
@@ -55,18 +69,9 @@ def dibuja(x, y, theta):
 	plt.plot(x_range, h(theta, x_h))
 	plt.savefig('regresion.png')
 
-def dibuja_3d(x, y):
-	theta0 = np.arange(-5, 5, 0.1)
-	theta1 = np.arange(-5, 5, 0.1)
-	theta0, theta1 = np.meshgrid(theta0, theta1)
-	costes = np.empty_like(theta0)
-	
+def dibuja_3d(theta0, theta1, costes):
 	fig = plt.figure()
 	ax = fig.gca(projection='3d')
-
-	for xi, yi in np.ndindex(theta0.shape):
-		theta = np.array([theta0[xi, yi], theta1[xi, yi]])
-		costes[xi, yi] = coste(theta, x, y)
 	# Plot the surface.
 	surf = ax.plot_surface(theta0, theta1, costes, cmap=cm.coolwarm,
 	                       linewidth=0, antialiased=False)
@@ -79,5 +84,12 @@ def dibuja_3d(x, y):
 	fig.colorbar(surf, shrink=0.5, aspect=5)
 
 	plt.savefig('3d.png')
+
+def dibuja_contorno(theta0, theta1, costes):
+	fig = plt.figure()
+	# Plot the surface.
+	plt.contour(theta0, theta1, costes, colors='black')
+
+	plt.savefig('contour.png')
 
 main()
