@@ -26,7 +26,17 @@ def costes(x, y, a):
 	normalX = (x - mediaX) / stdX
 	normalX = np.hstack([np.ones((m, 1)), normalX])
 
-	
+	theta = np.array(np.ones((len(x[0]))))
+	costes = []
+	thetas_array = []
+	for i in range(1500):
+		sumat = 0
+		for xi, yi in np.ndindex(normalX.shape):
+			sumat[yi] += (h(theta, x[xi, :]) - y[xi]) * x[xi, yi]
+		theta = theta - (a / m) * sumat
+		print(theta)
+		costes.append(coste(theta, x, y))
+		thetas_array.append(theta)
 
 
 main()
