@@ -45,11 +45,10 @@ def coste(theta, x, y):
 
 def dibuja(x, y, theta):
 	plt.plot(x, y, 'rx')
-
-	x_h = np.hstack([np.ones((23, 1)), [range(23)]])
-	print(x_h)
-	plt.plot(x_h[-1:].T, h(theta, x_h))
-	plt.show()
-
+	x_range = range(23)
+	x_matriz = np.array(x_range).reshape(23, 1)
+	x_h = np.hstack([np.ones((23, 1)), x_matriz])
+	plt.plot(x_range, h(theta, x_h))
+	plt.savefig('regresion.png')
 
 main()
