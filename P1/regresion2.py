@@ -27,11 +27,12 @@ def main():
 	Theta2 = ecuacion_normal(x, y)
 
 	x1 = np.array([1, 1650, 3])
+	x1n = np.array([1, (1650 - mu[0]) / sigma[0], (3 - mu[1]) / sigma[1]])
 
-	y1 = h(Theta, x1.T)
+	y1 = h(Theta, x1n.T)
 	y2 = h(Theta2, x1.T)
 	print(y1)
-	print(y2)
+	print(y2)	
 
 def ecuacion_normal(x, y):
 	m = len(x)
@@ -63,7 +64,7 @@ def descenso_gradiente(normalX, y, a):
 		sumat = [0.] * columns
 		for n in range(columns):
 			for j in range(m):
-				sumat[n] += (h(theta, normalX[j, :]) - y[j, :]) * normalX[j, n]
+				sumat[n] += (h(theta, normalX[j]) - y[j]) * normalX[j, n]
 			theta[n] = theta[n] - (a / m) * sumat[n]
 		costeJ = coste(theta, normalX, y)
 		ax.plot(i, costeJ[0][0], 'bx')

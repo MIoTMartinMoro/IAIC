@@ -46,12 +46,12 @@ def descenso_gradiente(x, y, a):
 
 def coste(theta, x, y):
 	m = len(x)
-	coste = (1 / (2 * m)) * np.sum((h(theta, x) - y)**2)
+	coste = (1 / (2 * m)) * np.sum((h(theta, x) - y.T)**2)
 	return coste
 
 def coste_3d(x, y):
-	theta0 = np.arange(-5, 5, 0.1)
-	theta1 = np.arange(-5, 5, 0.1)
+	theta0 = np.arange(-10, 10, 0.1)
+	theta1 = np.arange(-1, 4, 0.1)
 	theta0, theta1 = np.meshgrid(theta0, theta1)
 	costes = np.empty_like(theta0)
 
@@ -88,7 +88,7 @@ def dibuja_3d(theta0, theta1, costes):
 def dibuja_contorno(theta0, theta1, costes):
 	fig = plt.figure()
 	# Plot the surface.
-	plt.contour(theta0, theta1, costes, colors='black')
+	plt.contour(theta0, theta1, costes, np.logspace(-2, 3, 20))
 
 	plt.savefig('contour.png')
 
