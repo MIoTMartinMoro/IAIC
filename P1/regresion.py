@@ -24,7 +24,7 @@ def main():
 	dibuja(x[:, -1], y, Thetas)  # Dibuja la recta de regresión sobre los puntos de los valores
 	theta0, theta1, costes = coste_3d(x, y)  # Calcula todos los costes en forma de malla para dibujar la gráfica en 3D
 	dibuja_3d(theta0, theta1, costes)  # Dibuja la gráfica en 3D
-	dibuja_contorno(theta0, theta1, costes)  # Dibuja la proyección 2D del plano de la 3D.
+	dibuja_contorno(theta0, theta1, costes, Thetas)  # Dibuja la proyección 2D del plano de la 3D y el punto de mínimo coste.
 
 def descenso_gradiente(x, y, a):
 	m = len(x)
@@ -86,10 +86,11 @@ def dibuja_3d(theta0, theta1, costes):
 
 	plt.savefig('3d.png')
 
-def dibuja_contorno(theta0, theta1, costes):
+def dibuja_contorno(theta0, theta1, costes, Thetas):
 	fig = plt.figure()
 	# Plot the surface.
 	plt.contour(theta0, theta1, costes, np.logspace(-2, 3, 20))
+	plt.plot(Thetas[0], Thetas[1], 'rx')
 
 	plt.savefig('contour.png')
 
