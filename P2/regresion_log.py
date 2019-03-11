@@ -37,7 +37,6 @@ def g(z):
 
 def coste(theta, x, y):
 	m = len(x)
-	array = y * np.log(h(theta, x)) + (1 - y) * np.log(1 - h(theta, x))
 	coste = -(1 / m) * np.sum(y.T * np.log(h(theta, x)) + (1 - y.T) * np.log(1 - h(theta, x)))
 	return coste
 
