@@ -15,6 +15,7 @@ def main():
 	y = valores[:, -1:]  # e y
 
 	pinta_valores_iniciales(x, y)
+	plt.title('Valores iniciales')
 	plt.savefig('Valores_iniciales_regular.png')
 
 	pol = PolynomialFeatures(6)
@@ -69,6 +70,7 @@ def pinta_frontera_curva(X, Y, theta, poly, l):
 	h = h.reshape(xx1.shape)
 
 	plt.contour(xx1, xx2, h, [0.5], linewidths=1, colors='g')
+	plt.title('Lambda={}'.format(l))
 	plt.savefig('frontera_regular{}.png'.format(l))
 	plt.close()
 
