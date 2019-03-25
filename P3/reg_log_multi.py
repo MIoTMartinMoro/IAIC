@@ -57,6 +57,15 @@ def min_coste(x, y, l):
 	result = opt.fmin_tnc(func=coste, x0=initialTheta, fprime=grad, args=(x, y, l))
 	return result[0]
 
+def evalue(x, thetas, y):
+	count = 0
+	m = len(x)
+	for i in range(m):
+		val = classifier(x[i], thetas)
+		if (val == y[i]):
+			count += 1
+	print('Acierta el {}% de los números'.format((count / m) * 100))
+
 def tryExample(X, thetas):
 	for i in range(10):
 		sample = np.random.choice(X.shape[0], 1)
@@ -77,10 +86,10 @@ def main():
 	#pol = PolynomialFeatures(6)
 	#x_pol = pol.fit_transform(X)
 
-	l = 0
-	sample = np.random.choice(X.shape[0], int(len(X) * 0.7))
-	Thetas = oneVsAllTrain(X[sample, :], y[sample, :], 10, l)
+	l = 0.1
+	Thetas = oneVsAllTrain(X, y, 10, l)
 	tryExample(X, Thetas)
+	evalue(X, Thetas, y)
 
 
 main()
