@@ -7,7 +7,7 @@ from matplotlib.colors import ListedColormap
 from sklearn.metrics import confusion_matrix
 
 
-def plot_decision_boundary(func, X, y, figsize=(9, 6)):
+def plot_decision_boundary(func, X, y, label='figure', figsize=(9, 6)):
     """
     Genera una figura con las franjas donde 'func' toma los valores 
     [0, 0.25, 0.5, 0.75, 1], pintando cada franja de un color, desde
@@ -46,6 +46,7 @@ def plot_decision_boundary(func, X, y, figsize=(9, 6)):
     plt.scatter(X[:, 0], X[:, 1], c=y, cmap=cm_bright)
     plt.xlim(amin, amax)
     plt.ylim(bmin, bmax)
+    plt.savefig('{}_decision_boundary.png'.format(label))
 
 
 def plot_multiclass_decision_boundary(model, X, y):
@@ -72,7 +73,7 @@ def plot_multiclass_decision_boundary(model, X, y):
     plt.ylim(yy.min(), yy.max())
     
 
-def plot_data(X, y, figsize=None):
+def plot_data(X, y, label='figura', figsize=None):
     if not figsize:
         figsize = (8, 6)
     plt.figure(figsize=figsize)
@@ -81,9 +82,10 @@ def plot_data(X, y, figsize=None):
     plt.xlim((min(X[:, 0])-0.1, max(X[:, 0])+0.1))
     plt.ylim((min(X[:, 1])-0.1, max(X[:, 1])+0.1))
     plt.legend()
+    plt.savefig('{}_data.png'.format(label))
 
 
-def plot_loss_accuracy(history):
+def plot_loss_accuracy(history, label='figura'):
     """
     Genera una figura con la evolución del coste y la precisión durante
     el entrenamiento de un modelo en Keras. 
@@ -99,6 +101,7 @@ def plot_loss_accuracy(history):
     loss = history.history['loss'][-1]
     acc = history.history['acc'][-1]
     plt.title('Loss: %.3f, Accuracy: %.3f' % (loss, acc))
+    plt.savefig('{}_loss_accuracy.png'.format(label))
 
 
 def plot_loss(history):
@@ -108,7 +111,7 @@ def plot_loss(history):
     plt.title('Loss: %.3f' % history.history['loss'][-1])
     
 
-def plot_confusion_matrix(model, X, y):
+def plot_confusion_matrix(model, X, y, label):
     """
     Genera una figura con un mapa de calor que representa la matriz
     de confusión del modelo 'model' aplicado sobre los datos X comparado
@@ -123,6 +126,7 @@ def plot_confusion_matrix(model, X, y):
     plt.figure(figsize=(8, 6))
     sns.heatmap(pd.DataFrame(confusion_matrix(y, y_pred)), annot=True, fmt='d',
                 cmap='YlGnBu', alpha=0.8, vmin=0)
+    plt.savefig('{}_confusion_matrix.png'.format(label))
 
 
 def plot_compare_histories(history_list, name_list, plot_accuracy=True):
