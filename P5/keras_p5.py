@@ -27,14 +27,14 @@ def regresion(x, y, label):
 X1, y1 = make_circles (n_samples=1000, noise =0.05,  factor =0.3, random_state=0)
 X2, y2 = make_moons(n_samples=1000, noise =0.05, random_state=0)
 
-plot_data(X1, y1, 'circles_data')
+plot_data(X1, y1, 'circles')
 y_predict = regresion(X1, y1, 'circles_regr')
 y_predict = (y_predict > 0.5).astype('int')
 y_predict = y_predict.ravel()
 print(classification_report(y1, y_predict, target_names=['Class_0', 'Class_1']))
 
 
-plot_data(X2, y2, 'moon_data')
+plot_data(X2, y2, 'moon')
 y_predict = regresion(X2, y2, 'moon_regr')
 y_predict = (y_predict > 0.5).astype('int')
 y_predict = y_predict.ravel()

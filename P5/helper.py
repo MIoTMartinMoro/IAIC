@@ -84,6 +84,18 @@ def plot_data(X, y, label='figura', figsize=None):
     plt.legend()
     plt.savefig('{}_data.png'.format(label))
 
+def plot_data_3(X, y, label='figura', figsize=None):
+    if not figsize:
+        figsize = (8, 6)
+    plt.figure(figsize=figsize)
+    plt.plot(X[y==0, 0], X[y==0, 1], 'or', alpha=0.5, label=0)
+    plt.plot(X[y==1, 0], X[y==1, 1], 'ob', alpha=0.5, label=1)
+    plt.plot(X[y==2, 0], X[y==2, 1], 'og', alpha=0.5, label=2)
+    plt.xlim((min(X[:, 0])-0.1, max(X[:, 0])+0.1))
+    plt.ylim((min(X[:, 1])-0.1, max(X[:, 1])+0.1))
+    plt.legend()
+    plt.savefig('{}_data_3.png'.format(label))
+
 
 def plot_loss_accuracy(history, label='figura'):
     """
