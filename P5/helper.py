@@ -49,7 +49,7 @@ def plot_decision_boundary(func, X, y, label='figure', figsize=(9, 6)):
     plt.savefig('{}_decision_boundary.png'.format(label))
 
 
-def plot_multiclass_decision_boundary(model, X, y):
+def plot_multiclass_decision_boundary(model, X, y, label):
     """
     Genera una figura con las fronteras de decisión de un modelo 
     de Keras
@@ -62,7 +62,7 @@ def plot_multiclass_decision_boundary(model, X, y):
     x_min, x_max = X[:, 0].min() - 0.1, X[:, 0].max() + 0.1
     y_min, y_max = X[:, 1].min() - 0.1, X[:, 1].max() + 0.1
     xx, yy = np.meshgrid(np.linspace(x_min, x_max, 101), np.linspace(y_min, y_max, 101))
-    cmap = ListedColormap(['#FF0000', '#00FF00', '#0000FF'])
+    cmap = ListedColormap(['#FF0000', '#FFFF00', '#0000FF'])
 
     Z = model.predict_classes(np.c_[xx.ravel(), yy.ravel()], verbose=0)
     Z = Z.reshape(xx.shape)
@@ -71,6 +71,7 @@ def plot_multiclass_decision_boundary(model, X, y):
     plt.scatter(X[:, 0], X[:, 1], c=y, s=40, cmap=plt.cm.RdYlBu)
     plt.xlim(xx.min(), xx.max())
     plt.ylim(yy.min(), yy.max())
+    plt.savefig('{}_multiclass_decision_boundary.png'.format(label))
     
 
 def plot_data(X, y, label='figura', figsize=None):
@@ -89,8 +90,8 @@ def plot_data_3(X, y, label='figura', figsize=None):
         figsize = (8, 6)
     plt.figure(figsize=figsize)
     plt.plot(X[y==0, 0], X[y==0, 1], 'or', alpha=0.5, label=0)
-    plt.plot(X[y==1, 0], X[y==1, 1], 'ob', alpha=0.5, label=1)
-    plt.plot(X[y==2, 0], X[y==2, 1], 'og', alpha=0.5, label=2)
+    plt.plot(X[y==1, 0], X[y==1, 1], 'oy', alpha=0.5, label=1)
+    plt.plot(X[y==2, 0], X[y==2, 1], 'ob', alpha=0.5, label=2)
     plt.xlim((min(X[:, 0])-0.1, max(X[:, 0])+0.1))
     plt.ylim((min(X[:, 1])-0.1, max(X[:, 1])+0.1))
     plt.legend()
