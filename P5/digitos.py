@@ -29,26 +29,29 @@ def tryExample(X, y_predict):
 		plt.savefig('ejemplo{}.png'.format(i))  # y los pinta
 
 def neurona_profunda(X, y, label):
-	y_cat = to_categorical(y)
+	y_cat = to_categorical(y)  # Categoriza los datos de y
 
+	# Crea el modelo
 	model = Sequential()
 	model.add(Dense(64, input_shape=(400,), activation='tanh'))
 	model.add(Dense(32, activation='tanh'))
 	model.add(Dense(16, activation='tanh'))
 	model.add(Dense(10, activation='softmax'))
-
 	model.compile('adam', 'categorical_crossentropy', metrics=['accuracy'])
 
-	history = model.fit(X, y_cat, verbose=0, epochs=50)
+	history = model.fit(X, y_cat, verbose=0, epochs=50)  # Entrena el modelo
 
-	plot_confusion_matrix(model, X, y, label)
-	plot_loss_accuracy(history, label)
-	y_predict = model.predict(X)
+	plot_confusion_matrix(model, X, y, label)  # Genera una matriz de confusión
+	plot_loss_accuracy(history, label)  # Muestra la gráfica de loss y accuracy
+
+	y_predict = model.predict(X)  # Predice los datos a partir del modelo
+
+	# Formatea los valores predichos
 	for row in y_predict:
-		i = np.argmax(row)
-		row[:] = 0
-		row[i] = 1
-	print(classification_report(y_cat, y_predict, target_names=['Class_0', 'Class_1', 'Class_2', 'Class_3', 'Class_4', 'Class_5', 'Class_6', 'Class_7', 'Class_8', 'Class_9']))
-	tryExample(X, y_predict)
+		i = np.argmax(row)  # Saca en que posición está el máximo valor
+		row[:] = 0  # Todos los valores son 0
+		row[i] = 1  # Menos el de máximo valor que es 1
+	print(classification_report(y_cat, y_predict, target_names=['Class_0', 'Class_1', 'Class_2', 'Class_3', 'Class_4', 'Class_5', 'Class_6', 'Class_7', 'Class_8', 'Class_9']))  # Genera un reporte de clasificación y lo muestra por pantalla
+	tryExample(X, y_predict)  # Dibuja algunos dígitpos
 
 main()
