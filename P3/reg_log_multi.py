@@ -28,15 +28,13 @@ def classifier(X, Thetas):
 	for theta in Thetas:
 		vector[i] = h(theta, X)
 		i += 1
-	vector[0] = vector[10]  # La posición 10 guarda el valor de 0, por lo que lo cambiamos
 	return np.argmax(vector[:10])  # Devuelve la posición (la etiqueta) del valor máximo de salida de la función
 
 def oneVsAllTrain(X, y, num_etiquetas, reg):
 	m = len(X[0])
-	Thetas = np.zeros((num_etiquetas + 1, m))
-	for etiqueta in range(num_etiquetas + 1):  # Pone el +1 porque la posición 0 no tiene valor
-		if etiqueta == 0:  # Por lo que se la salta
-			continue
+	Thetas = np.zeros((num_etiquetas, m))
+	y[y == 10] = 0
+	for etiqueta in range(num_etiquetas):
 		y_aux = (y == etiqueta).astype('int')  # Convierta la posición que nos interesa en 1 y el resto en 0s
 		Thetas[etiqueta] = min_coste(X, y_aux, reg)  # Calcula el coste de que sea esa etiqueta
 	return Thetas

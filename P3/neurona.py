@@ -31,10 +31,7 @@ def main():
 	evaluar(h, y)
 
 
-def getH(X, theta1, theta2):
-	m = len(X)
-	x = np.hstack([np.ones((m, 1)), X])  # Le añade una columna de unos a las x. Así se puede hacer la función y=theta0 + x*theta1 como un producto escalar
-
+def getH(x, theta1, theta2):
 	z2 = np.dot(theta1, x.T)
 
 	a2 = g(z2)

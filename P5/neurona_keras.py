@@ -13,6 +13,8 @@ def main():
 
 def una_neurona(X, y, label):
 	y_cat = to_categorical(y)  # Categoriza los datos de y
+	print(y)
+	print(y_cat)
 
 	# Crea el modelo
 	model = Sequential()

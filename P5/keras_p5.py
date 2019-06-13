@@ -21,7 +21,8 @@ def regresion(x, y, label):
 def main():
 	X1, y1 = make_circles (n_samples=1000, noise =0.05,  factor =0.3, random_state=0) # Genera los datos en forma de círculo
 	X2, y2 = make_moons(n_samples=1000, noise =0.05, random_state=0) # Genera los datos en forma de lunas
-
+	print(y1)
+	print(X1)
 	# Los dos siguientes bloques de datos hacen exactamente lo mismo, pero a los diferentes conjuntos de datos, el primero a los datos en círculo y el segundo a los datos en forma de lunas
 	# Pinta los puntos de los datos
 	# Aplica regresión a los datos
